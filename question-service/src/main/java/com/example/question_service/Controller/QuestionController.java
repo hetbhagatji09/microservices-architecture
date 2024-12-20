@@ -5,6 +5,7 @@ import com.example.question_service.Model.Questions;
 import com.example.question_service.Model.Response;
 import com.example.question_service.Services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/question")
 public class QuestionController {
+    @Autowired
+    private Environment enviorment;
     @Autowired
     private QuestionService questionService;
     @GetMapping("/questions")
@@ -41,6 +44,7 @@ public class QuestionController {
     //getQuestions
     @PostMapping("getQuestions")
     public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(@RequestBody List<Integer> questions){
+        System.out.println(enviorment.getProperty("local.server.port"));
         return questionService.getQuestionsFromId(questions);
     }
     //getScore
